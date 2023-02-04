@@ -1,24 +1,23 @@
 import React from 'react'
+import "./styles/WeatherCard.css"
 
-const WeatherCard = ({weather}) => {
+const WeatherCard = ({weather, temperature, isCelsius, changeUnitTemp}) => {
     return (
-        <article>
-            <h1>Weather App</h1>
-            <h3>{`${weather.name}, ${weather.sys.country}`}</h3>
-            <section>
-                <div>
-                    <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`} alt="" />
+        <section className="weatherCard">
+            <h1 className="weatherCard_title">Weather App</h1>
+            <h2 className="weatherCard_place">{weather?.name}, {weather?.sys.country}</h2>
+            <div className="weatherCard_img">
+                <img src={`http://openweathermap.org/img/wn/${weather?.weather[0].icon}@4x.png`} alt="icon weather" />
                 </div>
-                <ul>
-                    <li>{weather.weather[0].description}</li>
-                    <li>Wind speed: {weather.wind.speed} m/s</li>
-                    <li>Clouds: {weather.clouds.all} %</li>
-                    <li>Pressure: {weather.main.pressure} hPa</li>
+                <h3 className="weatherCard_temp">{isCelsius ? temperature?.celsius + " °C" : temperature?.fahrenheit + " °K"}</h3>
+                <ul className="weatherCard_list">
+                    <li className="weatherCard_description">{weather?.weather[0].main}, {weather?.weather[0].description}</li>
+                    <li><span>Wind speed:</span> {weather?.wind.speed} m/s</li>
+                    <li><span>Clouds:</span> {weather?.clouds.all} %</li>
+                    <li><span>Pressure:</span> {weather?.main.pressure} hPa</li>
                 </ul>
-            </section>
-            <p>{weather.main.temp} K</p>
-            <button>Degrees °F/°C</button>
-        </article>
+                <button className="weatherCard_btn" onClick={changeUnitTemp}>&deg;C / &deg;F</button>
+        </section>
     )
 }
 
